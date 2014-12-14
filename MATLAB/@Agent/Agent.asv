@@ -12,10 +12,8 @@ classdef Agent < handle
     
     methods
         function obj = Agent(behavior, attitude)
-            if nargin > 0
-                obj.behavior_ = behavior;
-                obj.attitude_ = attitude;
-            end
+            obj.behavior_ = behavior;
+            obj.attitude_ = attitude;
         end
         
         function [] = AddNeighbor(obj, agent, dist)
@@ -26,7 +24,7 @@ classdef Agent < handle
         end
         
         function [] = Step(obj, size)
-            obj.behavior_ = obj.behavior_ + (0.01 * (1 - obj.behavior_));
+            obj.behavior_ = obj.behavior_ + (0.1 * (1 - obj.behavior_));
         end
     end
     

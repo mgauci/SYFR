@@ -1,7 +1,7 @@
 clear
 clc
 
-Pop = Population(20);
+Pop = Population(10);
 
 colormap(jet(1024))
 
