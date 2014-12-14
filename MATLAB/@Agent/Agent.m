@@ -25,6 +25,7 @@ classdef Agent < handle
             obj.neighbor_list_ = [obj.neighbor_list_, new_neighbor];
         end
         
+        % Step the agent by a specified step size (in days).
         function [] = Step(obj, size)
             obj.behavior_ = obj.behavior_ + (0.01 * (1 - obj.behavior_));
         end

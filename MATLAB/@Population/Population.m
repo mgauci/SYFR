@@ -19,29 +19,29 @@ classdef Population < handle
                 end
             end
             
-            % Add neighbors to agents.
-            for i = 1 : obj.size_
-                for j = 1 : obj.size_
-                    
-                    for m = i - 5 : i + 5
-                        for n = j - 5 : j + 5
-                            
-                            if (~(m == i && n == j) && (0 < m) && ...
-                                    (m <= obj.size_) && (0 < n) && ...
-                                    (n <= obj.size_))
-                                
-                                dist = max(abs(m - i), abs(n - j));
-                                
-                                obj.agent_grid_(i, j).AddNeighbor( ...
-                                    obj.agent_grid_(m, n), dist);
-                                
-                            end % if statement.
-                            
-                        end % n for loop.
-                    end % m for loop.
-                    
-                end % j for loop.
-            end % i for loop.
+%             % Add neighbors to agents.
+%             for i = 1 : obj.size_
+%                 for j = 1 : obj.size_
+%                     
+%                     for m = i - 5 : i + 5
+%                         for n = j - 5 : j + 5
+%                             
+%                             if (~(m == i && n == j) && (0 < m) && ...
+%                                     (m <= obj.size_) && (0 < n) && ...
+%                                     (n <= obj.size_))
+%                                 
+%                                 dist = max(abs(m - i), abs(n - j));
+%                                 
+%                                 obj.agent_grid_(i, j).AddNeighbor( ...
+%                                     obj.agent_grid_(m, n), dist);
+%                                 
+%                             end % if statement.
+%                             
+%                         end % n for loop.
+%                     end % m for loop.
+%                     
+%                 end % j for loop.
+%             end % i for loop.
             
         end % Population function (constructor).
         
