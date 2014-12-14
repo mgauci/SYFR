@@ -3,7 +3,7 @@ classdef Agent < handle
         behavior_;
         attitude_;
         
-        incident_ = 0;
+        incident_;
     end
     
     properties (GetAccess = private)
@@ -26,12 +26,11 @@ classdef Agent < handle
         end
         
         % Step the agent by a specified step size (in days).
-        function [] = Update(obj, size)
-%             obj.behavior_ = obj.behavior_ + 0.01;
+        function [] = Step(obj, size)
+            obj.behavior_ = obj.behavior_ + (0.01 * (1 - obj.behavior_));
             
             obj.incident_ = 0;
-            if (rand < (size * obj.behavior_ / 365))
-                obj.incident_ = 1;
+            if (rand < step * obj.behavior_/365)
             end
         end
     end

@@ -45,11 +45,11 @@ classdef Population < handle
             
         end % Population function (constructor).
         
-        function [] = Step(obj)
+        function [] = Update(obj)
             
             for i = 1 : obj.size_
                 for j = 1 : obj.size_
-                    obj.agent_grid_(i, j).Step(0.1);
+                    obj.agent_grid_(i, j).Update(1);
                 end
             end
             
@@ -60,6 +60,15 @@ classdef Population < handle
             for i = 1 : obj.size_
                 for j = 1 : obj.size_
                     behavior_map(i, j) = obj.agent_grid_(i, j).behavior_;
+                end
+            end
+        end
+        
+        function [incident_map] = IncidentMap(obj)
+            incident_map = zeros(obj.size_, obj.size_);
+            for i = 1 : obj.size_
+                for j = 1 : obj.size_
+                    incident_map(i, j) = obj.agent_grid_(i, j).incident_;
                 end
             end
         end
