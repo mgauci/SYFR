@@ -5,11 +5,8 @@ classdef Population < handle
     end
     
     methods
-        function obj = Population(size)
-            obj.size_ = size;
-            
-            init_behaviors = 0.5*rand(obj.size_, obj.size_);
-            init_attitudes = rand(obj.size_, obj.size_);
+        function obj = Population(init_behaviors, init_attitudes)
+            obj.size_ = size(init_behaviors, 1);
             
             % Initialize agent grid.
             for i = 1 : obj.size_
@@ -19,33 +16,41 @@ classdef Population < handle
                 end
             end
             
-%             % Add neighbors to agents.
-%             for i = 1 : obj.size_
-%                 for j = 1 : obj.size_
-%                     
-%                     for m = i - 5 : i + 5
-%                         for n = j - 5 : j + 5
-%                             
-%                             if (~(m == i && n == j) && (0 < m) && ...
-%                                     (m <= obj.size_) && (0 < n) && ...
-%                                     (n <= obj.size_))
-%                                 
-%                                 dist = max(abs(m - i), abs(n - j));
-%                                 
-%                                 obj.agent_grid_(i, j).AddNeighbor( ...
-%                                     obj.agent_grid_(m, n), dist);
-%                                 
-%                             end % if statement.
-%                             
-%                         end % n for loop.
-%                     end % m for loop.
-%                     
-%                 end % j for loop.
-%             end % i for loop.
+            % Add neighbors to agents.
+            for i = 1 : obj.size_
+                for j = 1 : obj.size_
+                    
+                    for m = i - 5 : i + 5
+                        for n = j - 5 : j + 5
+                            
+                            if (~(m == i && n == j) && (0 < m) && ...
+                                    (m <= obj.size_) && (0 < n) && ...
+                                    (n <= obj.size_))
+                                
+                                dist = max(abs(m - i), abs(n - j));
+                                
+                                obj.agent_grid_(i, j).AddNeighbor( ...
+                                    obj.agent_grid_(m, n), dist);
+                                
+                            end % if statement.
+                            
+                        end % n for loop.
+                    end % m for loop.
+                    
+                end % j for loop.
+            end % i for loop.
+            
+            fprintf('POPULATION INITIALIZED \n');
             
         end % Population function (constructor).
         
         function [] = Update(obj)
+            
+            for i = 1 : obj.size_
+                for j = 1 : obj.size_
+                    obj.agent_grid_(i, j).ApplyNeighborInfluence();
+                end
+            end
             
             for i = 1 : obj.size_
                 for j = 1 : obj.size_

@@ -1,30 +1,45 @@
 clear
 clc
 
-x1 = 1:100;
-x2 = 1:100;
-[X1, X2] = meshgrid(x1, x2);
-mu = [75, 10];
-Sigma = 100 * [1, 0.5; 0.5, 1];
-F = mvnpdf([X1(:), X2(:)], mu, Sigma);
-F = reshape(F, 100, 100);
+size = 50;
 
-F = F';
-F = F / F(75, 10);
-F = F';
+x = 1 : size;
+y = 1 : size;
+[X, Y] = meshgrid(x, y);
 
-colormap(jet(1024));
-imagesc(flip(F, 1), [0, 1]);
+mu = [10, 25];
+Sigma = 125 * [1, 0; 0, 1];
+F = mvnpdf([X(:), Y(:)], mu, Sigma);
+F = reshape(F, length(y), length(x))';
+F = F / max(max(F));
+
+mu = [40, 25];
+Sigma = 125 * [1, 0; 0, 1];
+G = mvnpdf([X(:), Y(:)], mu, Sigma);
+G = reshape(G, length(y), length(x))';
+G = G / max(max(G));
+
+H = max(F, G);
+
+noise = 0.25;
+H = (1 - noise) * H + noise * rand(size, size);
 
 
-% Pop = Population(100);
-% 
-% colormap(jet(1024))
-% 
-% for t = 1 : 10000
-%     imagesc(Pop.BehaviorMap(), [0, 1]);
-%     disp(t)
-%     Pop.Update();
-%     pause(0.01);
-% end
+A = repmat(1 : size, size, 1)';
+% A = A .* rand(size, size);
+A = A / max(max(A));
+A = 0.5 + 0.5*A;
 
+init_behaviors = H;
+init_attitudes = A;
+
+Pop = Population(init_behaviors, init_attitudes);
+
+history = {100};
+
+for t = 1 : 100
+    disp(t)
+    history{t} = Pop.BehaviorMap();
+    Pop.Update();
+    pause(0.01);
+end
