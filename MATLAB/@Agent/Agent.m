@@ -27,14 +27,14 @@ classdef Agent < handle
         
         % Step the agent by a specified step size (in days).
         function [] = Update(obj, size)
-            obj.behavior_ = obj.behavior_ + (obj.attitude_ * 0.01);
+            obj.behavior_ = obj.behavior_ + (obj.attitude_ * 0.001);
             
             obj.incident_ = 0;
             if (rand < (size * obj.behavior_ / 365.2425))
                 obj.incident_ = 1;
                 
-                obj.attitude_ = (1 - 0.25) * obj.attitude_;
-                obj.behavior_ = (1 - ((1 - obj.attitude_) * 0.25)) * obj.behavior_;
+                obj.attitude_ = (1 - 0.5) * obj.attitude_;
+                obj.behavior_ = (1 - ((1 - obj.attitude_) * 0.5)) * obj.behavior_;
             end           
         end
         
@@ -46,7 +46,7 @@ classdef Agent < handle
                     
                     dist = obj.neighbor_list_(i).dist_;
                     
-                    factor = factor * (1 - 0.125 / dist);
+                    factor = factor * (1 - 0.25 / dist);
                     
                 end
             end

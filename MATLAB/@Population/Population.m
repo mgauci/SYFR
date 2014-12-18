@@ -20,8 +20,8 @@ classdef Population < handle
             for i = 1 : obj.size_
                 for j = 1 : obj.size_
                     
-                    for m = i - 5 : i + 5
-                        for n = j - 5 : j + 5
+                    for m = i - 3 : i + 3
+                        for n = j - 3 : j + 3
                             
                             if (~(m == i && n == j) && (0 < m) && ...
                                     (m <= obj.size_) && (0 < n) && ...
